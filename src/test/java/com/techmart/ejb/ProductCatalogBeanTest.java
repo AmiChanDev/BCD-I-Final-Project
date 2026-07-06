@@ -54,14 +54,14 @@ class ProductCatalogBeanTest {
     @BeforeEach
     void setUp() throws Exception {
         // Wire mocks: dsProvider.getConnection() → connection
-        when(dsProvider.getConnection()).thenReturn(connection);
+        lenient().when(dsProvider.getConnection()).thenReturn(connection);
 
         // connection.prepareStatement(any) → preparedStatement
-        when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
-        when(connection.prepareStatement(anyString(), anyInt())).thenReturn(preparedStatement);
+        lenient().when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
+        lenient().when(connection.prepareStatement(anyString(), anyInt())).thenReturn(preparedStatement);
 
         // preparedStatement.executeQuery() → resultSet
-        when(preparedStatement.executeQuery()).thenReturn(resultSet);
+        lenient().when(preparedStatement.executeQuery()).thenReturn(resultSet);
 
         // PerformanceMonitor.record() is void — no stubbing needed; just verify later
     }

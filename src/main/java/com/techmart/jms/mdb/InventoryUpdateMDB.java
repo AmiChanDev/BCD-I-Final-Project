@@ -29,15 +29,7 @@ import java.util.logging.Logger;
         ),
         @ActivationConfigProperty(
             propertyName  = "subscriptionDurability",
-            propertyValue = "Durable"
-        ),
-        @ActivationConfigProperty(
-            propertyName  = "clientId",
-            propertyValue = "TechMartInventorySubscriber"
-        ),
-        @ActivationConfigProperty(
-            propertyName  = "subscriptionName",
-            propertyValue = "InventoryUpdateSubscription"
+            propertyValue = "NonDurable"
         )
     }
 )

@@ -59,7 +59,7 @@ class InventoryTrackerBeanTest {
         when(resultSet.getInt("stock_quantity")).thenReturn(50, 10, 0);
 
         // Stub update statement for reserve/restock operations
-        when(preparedStatement.executeUpdate()).thenReturn(1);
+        lenient().when(preparedStatement.executeUpdate()).thenReturn(1);
 
         // Call @PostConstruct manually
         callPostConstruct();

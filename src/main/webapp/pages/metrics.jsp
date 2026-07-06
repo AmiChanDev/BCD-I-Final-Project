@@ -46,7 +46,7 @@
                                 <td>${row.key.substring(row.key.lastIndexOf('.') + 1)}</td>
                                 <td class="num">${row.invocations}</td>
                                 <td class="num latency ${row.avgLatencyMs > 100 ? 'latency-warn' : 'latency-ok'}">
-                                    ${row.avgLatencyMs}
+                                    <fmt:formatNumber value="${row.avgLatencyMs}" pattern="#,##0.00"/>
                                 </td>
                                 <td>
                                     <span class="badge ${row.avgLatencyMs > 500 ? 'badge-danger' : row.avgLatencyMs > 100 ? 'badge-warn' : 'badge-ok'}">

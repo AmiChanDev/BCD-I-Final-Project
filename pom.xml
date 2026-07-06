@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -12,7 +12,7 @@
     <packaging>war</packaging>
 
     <name>TechMart E-Commerce Platform</name>
-    <description>Jakarta EE 9 enterprise e-commerce project — GlassFish 7</description>
+    <description>Jakarta EE 9 enterprise e-commerce project â€” GlassFish 7</description>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -58,7 +58,7 @@
     <dependencies>
 
         <!--
-            Jakarta EE 9.1 API — GlassFish 7 (Jakarta EE 10) supports this
+            Jakarta EE 9.1 API â€” GlassFish 7 (Jakarta EE 10) supports this
             older API version for backward compatibility.
 
             DEFAULT APPROACH (Maven Central / Eclipse repo):
@@ -119,6 +119,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Arquillian Servlet protocol for Jakarta EE containers -->
+        <dependency>
+            <groupId>org.jboss.arquillian.protocol</groupId>
+            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Arquillian GlassFish Remote Container -->
         <dependency>
             <groupId>org.omnifaces.arquillian</groupId>
@@ -137,9 +144,28 @@
 
     </dependencies>
 
+
     <build>
         <finalName>techmart-ecommerce</finalName>
         <plugins>
+
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <includes>
+                        <include>**/TechMartIntegrationTest.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -160,7 +186,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Unit tests — no GlassFish needed -->
+            <!-- Unit tests â€” no GlassFish needed -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -175,22 +201,8 @@
                 </configuration>
             </plugin>
 
-            <!-- Integration tests — requires GlassFish running -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.1.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
-            <!-- GlassFish Maven Plugin — mvn glassfish:deploy -->
+            <!-- GlassFish Maven Plugin â€” mvn glassfish:deploy -->
             <plugin>
                 <groupId>org.glassfish.maven.plugin</groupId>
                 <artifactId>maven-glassfish-plugin</artifactId>
@@ -220,7 +232,7 @@
         PROFILE: local-glassfish
         ========================
         Use this profile if the default jakarta.jakartaee-api download fails.
-        It points directly at the jar inside your GlassFish installation —
+        It points directly at the jar inside your GlassFish installation â€”
         no internet download required.
 
         Usage:
@@ -245,7 +257,7 @@
     </profiles>
 
     <repositories>
-        <!-- Eclipse Foundation repo — authoritative source for jakarta.* APIs -->
+        <!-- Eclipse Foundation repo â€” authoritative source for jakarta.* APIs -->
         <repository>
             <id>eclipse-releases</id>
             <name>Eclipse Release Repository</name>

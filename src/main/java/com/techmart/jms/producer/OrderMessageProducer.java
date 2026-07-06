@@ -34,7 +34,7 @@ public class OrderMessageProducer {
     public void sendOrderForProcessing(Order order) {
         long start = System.currentTimeMillis();
 
-        try (JMSContext context = connectionFactory.createContext(JMSContext.SESSION_TRANSACTED)) {
+        try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)) {
 
             JMSProducer producer = context.createProducer()
                     .setDeliveryMode(DeliveryMode.PERSISTENT)    // survives broker restart
@@ -49,7 +49,6 @@ public class OrderMessageProducer {
             message.setStringProperty("status", Order.Status.PENDING.name());
 
             producer.send(orderQueue, message);
-            context.commit();   // commit the transacted session
 
             LOG.info("Order enqueued: orderId=" + order.getId() +
                      ", customer=" + order.getCustomerId());

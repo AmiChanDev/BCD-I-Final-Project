@@ -3,6 +3,8 @@ package com.techmart.util;
 import com.techmart.model.PerformanceMetric;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.ejb.Lock;
 import jakarta.ejb.LockType;
 import jakarta.ejb.Singleton;
@@ -44,6 +46,7 @@ public class PerformanceMonitor {
         LOG.info("PerformanceMonitor initialized at " + startTime);
     }
 
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void record(String component, String operation, long elapsedMs) {
         String key = component + "." + operation;
 
@@ -88,7 +91,7 @@ public class PerformanceMonitor {
             Map<String, Object> row = new ConcurrentHashMap<>();
             row.put("key", key);
             row.put("invocations", count != null ? count.get() : 0L);
-            row.put("avgLatencyMs", String.format("%.2f", avg));
+            row.put("avgLatencyMs", avg);
             summary.add(row);
         }
         return summary;
